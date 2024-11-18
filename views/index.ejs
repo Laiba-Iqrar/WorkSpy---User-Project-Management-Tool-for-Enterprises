@@ -1,0 +1,17 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <h1>Welcome, <%= user ? user.first_name : 'User' %>!</h1>
+    <ul>
+        <li><a href="/timesheets">Fill Timesheet</a></li>
+        <li><a href="/leave">Apply for Leave</a></li>
+        <li><a href="/tasks">View Task Progress</a></li>
+    </ul>
+</body>
+</html>
