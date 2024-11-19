@@ -1,0 +1,13 @@
+<h3>Timesheets</h3>
+<form action="/timesheets" method="POST">
+  <label>Task ID:</label><input type="text" name="taskId" required>
+  <label>Total Hours:</label><input type="number" step="0.1" name="totalHours" required>
+  <label>Comments:</label><textarea name="comments"></textarea>
+  <button type="submit">Submit</button>
+</form>
+<h4>Submitted Timesheets</h4>
+<ul>
+  <% timesheets.forEach(ts => { %>
+    <li><%= ts.task_description %> - <%= ts.total_hours %> hrs - <%= ts.status %></li>
+  <% }) %>
+</ul>
