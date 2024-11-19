@@ -1,18 +1,43 @@
-// app.js
 const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const timesheetRoutes = require('./routes/timesheetRoutes');
+const leaveRoutes = require('./routes/leaveRoutes');
 
 const app = express();
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Middleware for session management
+app.use(
+  session({
+    secret: 'secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // Set to true if using HTTPS
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: false }));
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
-app.use('/', userRoutes);
+// Middleware to protect restricted routes
+function isAuthenticated(req, res, next) {
+  if (req.session.userId) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
 
-app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
-});
+app.use('/', authRoutes); // Login & Dashboard
+app.use('/timesheets', timesheetRoutes); // Timesheets
+app.use('/leave', leaveRoutes); // Leave Requests
+
+
+// Protected routes
+app.use(isAuthenticated); // Middleware applied here
+app.use(userRoutes);
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));

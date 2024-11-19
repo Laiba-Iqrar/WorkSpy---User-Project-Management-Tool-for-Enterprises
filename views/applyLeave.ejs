@@ -1,0 +1,20 @@
+<h3>Apply for Leave</h3>
+<form action="/leave/apply-leave" method="POST">
+  <label>Leave Type:</label>
+  <select name="leaveType" required>
+    <option value="sick">Sick</option>
+    <option value="vacation">Vacation</option>
+    <option value="personal">Personal</option>
+  </select>
+
+  <label>Start Date:</label>
+  <input type="date" name="startDate" required />
+
+  <label>End Date:</label>
+  <input type="date" name="endDate" required />
+
+  <label>Reason:</label>
+  <textarea name="reason" required></textarea>
+
+  <button type="submit">Apply</button>
+</form>

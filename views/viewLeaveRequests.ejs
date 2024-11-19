@@ -1,0 +1,6 @@
+<h4>Leave Requests</h4>
+<ul>
+  <% leaveRequests.forEach(lr => { %>
+    <li><%= lr.leave_type %> - <%= lr.start_date %> to <%= lr.end_date %> - <%= lr.status %></li>
+  <% }) %>
+</ul>
