@@ -2,6 +2,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
+const { findUserById, findTasksByUser } = require('../models/User');
 
 
 function showRegisterPage(req, res) {
@@ -101,4 +102,13 @@ async function toggleUserActivation(req, res) {
   }
 }
 
-module.exports = { registerUser, loginUser, updateProfile, changePassword, toggleUserActivation, showRegisterPage,  showLandingPage };
+async function userDashboard(req, res) {
+  const userId = req.session.userId;
+  const user = await findUserById(userId); // Fetch user details
+  const tasks = await findTasksByUser(userId); // Fetch tasks for user
+
+  res.render('dashboard', { user, tasks });
+}
+
+
+module.exports = { registerUser, loginUser, updateProfile, changePassword, toggleUserActivation, showRegisterPage,  showLandingPage,userDashboard };

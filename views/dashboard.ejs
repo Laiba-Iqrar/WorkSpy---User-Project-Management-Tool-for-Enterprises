@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Welcome, <%= user.first_name %>!</h1>
+  <ul>
+    <li><a href="/timesheets">Timesheets</a></li>
+    <li><a href="/leave">Leave Requests</a></li>
+    <li><a href="/leave/apply-leave">Apply for Leave</a></li>
+    <li><a href="/logout">Logout</a></li>
+  </ul>
+  <h3>Your Tasks:</h3>
+  <ul>
+    <% tasks.forEach(task => { %>
+      <li><%= task.task_description %> - <%= task.status %></li>
+    <% }) %>
+  </ul>
+</body>
+</html>
