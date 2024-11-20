@@ -2,6 +2,12 @@
 <form action="/timesheets" method="POST">
   <label>Task ID:</label><input type="text" name="taskId" required>
   <label>Total Hours:</label><input type="number" step="0.1" name="totalHours" required>
+  <label>Status:</label>
+  <select name="status" required>
+    <option value="Not Started">Not Started</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Completed">Completed</option>
+  </select>
   <label>Comments:</label><textarea name="comments"></textarea>
   <button type="submit">Submit</button>
 </form>

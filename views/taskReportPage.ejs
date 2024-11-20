@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task and Timesheet Reports</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas {
+      max-width: 300px; /* Reduce chart size */
+      max-height: 300px;
+      margin: 20px auto;
+    }
+    .chart-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Task and Timesheet Reports</h1>
+
+  <div class="chart-container">
+    <!-- Task Status Chart -->
+    <div>
+      <h3>Task Status Overview</h3>
+      <canvas id="taskStatusChart"></canvas>
+    </div>
+
+    <!-- Weekly Hours Chart -->
+    <div>
+      <h3>Weekly Hours Logged</h3>
+      <canvas id="weeklyHoursChart"></canvas>
+    </div>
+
+    <!-- Timesheet Approval Status Chart -->
+    <div>
+      <h3>Timesheet Approval Status</h3>
+      <canvas id="timesheetApprovalChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Task Status Chart
+    
+    const taskCtx = document.getElementById('taskStatusChart').getContext('2d');
+    const taskChartData = <%- JSON.stringify(chartData.taskChartData) %>;
+    new Chart(taskCtx, {
+      type: 'pie',
+      data: {
+        labels: taskChartData.labels,
+        datasets: [{
+          data: taskChartData.values,
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'], // Add more colors as needed
+        }]
+      }
+    });
+
+    // Weekly Hours Chart
+    const weeklyCtx = document.getElementById('weeklyHoursChart').getContext('2d');
+    const weeklyHoursChartData = <%- JSON.stringify(chartData.weeklyHoursChartData) %>;
+    new Chart(weeklyCtx, {
+      type: 'line',
+      data: {
+        labels: weeklyHoursChartData.labels,
+        datasets: [{
+          label: 'Hours Logged',
+          data: weeklyHoursChartData.values,
+          borderColor: 'blue',
+          borderWidth: 2,
+          fill: false,
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true },
+          x: { title: { display: true, text: 'Date' } }
+        }
+      }
+    });
+
+    // Timesheet Approval Status Chart
+    const timesheetCtx = document.getElementById('timesheetApprovalChart').getContext('2d');
+    const timesheetChartData = <%- JSON.stringify(chartData.timesheetChartData) %>;
+    new Chart(timesheetCtx, {
+      type: 'doughnut',
+      data: {
+        labels: timesheetChartData.labels,
+        datasets: [{
+          data: timesheetChartData.values,
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Add more colors as needed
+        }]
+      }
+    });
+  </script>
+</body>
+</html>
