@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manager Dashboard</title>
+</head>
+<body>
+  <h1>Welcome, Manager <%= user.userId %>!</h1>
+  <a href="/logout">Logout</a>
+  <h2>Assigned Projects</h2>
+  <ul>
+    <% projects.forEach(project => { %>
+      <li>
+        <strong><%= project.project_name %></strong> - <%= project.description %>
+        <br> Milestone: <%= project.milestone %> | Deadline: <%= project.deadline %>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
