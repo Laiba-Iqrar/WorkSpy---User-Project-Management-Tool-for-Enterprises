@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Project</title>
+</head>
+<body>
+  <h1>Edit Project</h1>
+  <form action="/m-projects/edit/<%= project ? project.project_id : '' %>" method="POST">
+    <label for="project_name">Project Name:</label>
+    <input
+      type="text"
+      id="project_name"
+      name="project_name"
+      value="<%= project ? project.project_name : '' %>"
+      required
+    >
+  
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required><%= project ? project.description : '' %></textarea>
+  
+    <label for="milestone">Milestone:</label>
+    <input
+      type="text"
+      id="milestone"
+      name="milestone"
+      value="<%= project ? project.milestone : '' %>"
+      required
+    >
+  
+    <label for="deadline">Deadline:</label>
+    <input
+      type="date"
+      id="deadline"
+      name="deadline"
+      value="<%= project ? project.deadline.toISOString().slice(0, 10) : '' %>"
+      required
+    >
+  
+    <button type="submit">Update Project</button>
+  </form>
+  
+</body>
+</html>

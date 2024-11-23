@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Details</title>
+</head>
+<body>
+  <h1>Project Details</h1>
+  <% if (details) { %>
+    <p><strong>Project Name:</strong> <%= details.name %></p>
+    <p><strong>Description:</strong> <%= details.description %></p>
+    <p><strong>Created At:</strong> <%= details.created_at %></p>
+    <p><strong>Updated At:</strong> <%= details.updated_at %></p>
+    <a href="/m-projects">Back to Projects</a>
+  <% } else { %>
+    <p>No project details available.</p>
+  <% } %>
+</body>
+</html>

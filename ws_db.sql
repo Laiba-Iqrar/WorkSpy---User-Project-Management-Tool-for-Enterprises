@@ -28,7 +28,10 @@ CREATE TABLE projects (
     milestone VARCHAR(255),
     deadline DATE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_by INT,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    FOREIGN KEY (created_by) REFERENCES users(user_id),
+
 );
 
 -- 3. tasks Table (Referencing both users and projects tables)

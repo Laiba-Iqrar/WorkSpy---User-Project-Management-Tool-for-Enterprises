@@ -18,7 +18,7 @@ async function login(req, res) {
 
     // Redirect based on role
     if (user.role === 'manager') {
-      return res.redirect('/manager/dashboard');
+      return res.redirect('/manager-dashboard');
     } else if (user.role === 'employee') {
       return res.redirect('/dashboard');
     }
@@ -33,4 +33,4 @@ function logout(req, res) {
   });
 }
 
-module.exports = { loginPage, login, logout };
+module.exports = {  login, logout, loginPage };

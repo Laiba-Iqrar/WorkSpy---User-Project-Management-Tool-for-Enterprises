@@ -17,4 +17,19 @@ function authenticateJWT(req, res, next) {
   });
 }
 
-module.exports = authenticateJWT;
+function ensureManager(req, res, next) {
+  if (req.session.role === 'manager') {
+    return next();
+  }
+  res.redirect('/login');
+}
+
+function ensureAuthenticated(req, res, next) {
+  if (req.session.userId) {
+    return next();
+  }
+  res.redirect('/login');
+}
+
+module.exports = {authenticateJWT, ensureManager, ensureAuthenticated };
+

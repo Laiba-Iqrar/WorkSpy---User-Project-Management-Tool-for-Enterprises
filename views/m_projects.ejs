@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Projects Management</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+  <h1>Projects</h1>
+  <a href="/manager-dashboard">Back to Dashboard</a>
+  <a href="/m-projects/new">Create New Project</a>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Project Name</th>
+        <th>Milestone</th>
+        <th>Deadline</th>
+        <th>Tasks Completed / Total Tasks</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% projects.forEach(project => { %>
+        <tr>
+          <td><%= project.project_name %></td>
+          <td><%= project.milestone %></td>
+          <td><%= project.deadline %></td>
+          <td><%= project.completed_tasks %> / <%= project.total_tasks %></td>
+          <td><%= project.status %></td>
+          <td>
+            <a href="/m-projects/details/<%= project.project_id %>">View</a> |
+            <a href="/m-projects/edit/<%= project.project_id %>">Edit</a> |
+            <form action="/m-projects/delete/<%= project.project_id %>" method="POST" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

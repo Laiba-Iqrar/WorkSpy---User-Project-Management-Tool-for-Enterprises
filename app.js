@@ -6,7 +6,10 @@ const userRoutes = require('./routes/userRoutes');
 const timesheetRoutes = require('./routes/timesheetRoutes');
 const leaveRoutes = require('./routes/leaveRoutes');
 const taskReportRoutes = require('./routes/taskReportRoutes');
-const managerRoutes = require('./routes/m_managerRoutes');
+const mprojectRoutes = require('./routes/m_projectsRoutes');
+const mDashboardRoutes = require('./routes/m_dashboardRoutes');
+
+
 
 // Other routes
 
@@ -41,7 +44,11 @@ app.use('/', authRoutes); // Login & Dashboard
 app.use('/timesheets', timesheetRoutes); // Timesheets
 app.use('/leave', leaveRoutes); // Leave Requests
 app.use('/reports', taskReportRoutes); // Task Reports
-app.use('/manager', isAuthenticated, managerRoutes);
+// app.use('/manager', isAuthenticated, managerRoutes);
+app.use('/', mDashboardRoutes);
+app.use('/m-projects', mprojectRoutes)
+
+
 
 
 

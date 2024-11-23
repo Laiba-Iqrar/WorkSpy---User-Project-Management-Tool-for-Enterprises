@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manager Dashboard</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+  <h1>Manager Dashboard</h1>
+  
+  <section>
+    <h2>Widgets</h2>
+    <div>
+      <p>Total Projects: <%= metrics.totalProjects %></p>
+      <p>Active Tasks: <%= metrics.activeTasks %></p>
+      <p>Pending Approvals: <%= metrics.pendingApprovals %></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Notifications</h2>
+    <div>
+      <h3>Pending Leave Requests</h3>
+      <ul>
+        <% notifications.pendingLeaveRequests.forEach(request => { %>
+          <li><%= request.reason %> (Status: <%= request.status %>)</li>
+        <% }) %>
+      </ul>
+
+      <h3>Upcoming Project Deadlines</h3>
+      <ul>
+        <% notifications.upcomingDeadlines.forEach(deadline => { %>
+          <li><%= deadline.project_name %> (Deadline: <%= deadline.deadline %>)</li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quick Actions</h2>
+    <ul>
+      <ul>
+        <li><a href="/manager-projects">View Projects</a></li>
+        <li><a href="/manager-tasks">View Tasks</a></li>
+        <li><a href="/manager-users">View Users</a></li>
+      </ul>
+      
+      <% quickActions.forEach(action => { %>
+        <li><a href="<%= action.link %>"><%= action.label %></a></li>
+        
+      <% }) %>
+    </ul>
+  </section>
+</body>
+</html>
