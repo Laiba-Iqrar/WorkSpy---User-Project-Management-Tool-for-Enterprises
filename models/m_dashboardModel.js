@@ -43,9 +43,8 @@ async function getNotifications(managerId) {
 function getQuickActions() {
   return [
     { label: 'View Projects', link: '/manager-projects' },
-    { label: 'View Tasks', link: '/manager-tasks' },
+    { label: 'View Tasks', link: '/m-tasks' },
     { label: 'View Users', link: '/manager-users' },
-    { label: 'View Reports', link: '/manager-reports' },
   ];
 }
 

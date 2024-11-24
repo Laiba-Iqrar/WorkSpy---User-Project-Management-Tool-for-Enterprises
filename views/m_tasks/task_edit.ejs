@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Task</title>
+</head>
+<body>
+  <h1>Edit Task</h1>
+  <form method="POST" action="/m-tasks/edit/<%= task.task_id %>">
+    <label for="task_description">Task Description:</label>
+    <input type="text" id="task_description" name="task_description" value="<%= task.task_description %>" required>
+    <br><br>
+
+    <label for="assigned_user">Assigned User:</label>
+    <input type="text" id="assigned_user" name="assigned_user" value="<%= task.assigned_user %>" required>
+    <br><br>
+
+    <label for="status">Status:</label>
+    <select id="status" name="status" required>
+      <option value="pending" <%= task.status === 'pending' ? 'selected' : '' %>>Pending</option>
+      <option value="in-progress" <%= task.status === 'in-progress' ? 'selected' : '' %>>In Progress</option>
+      <option value="completed" <%= task.status === 'completed' ? 'selected' : '' %>>Completed</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Update Task</button>
+  </form>
+</body>
+</html>

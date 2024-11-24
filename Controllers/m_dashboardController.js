@@ -5,6 +5,7 @@ async function managerDashboard(req, res) {
     console.log('Session Data:', req.session);
     console.log('Manager Dashboard Controller Invoked');
 
+
     const userId = req.session.userId;
     const metrics = await getDashboardMetrics(userId);
     const notifications = await getNotifications(userId);
@@ -26,17 +27,14 @@ async function viewTasks(req, res) {
 }
 
 async function viewUsers(req, res) {
-  res.redirect('/m-users');
+  res.redirect('/manager-users');
 }
 
-async function viewReports(req, res) {
-  res.redirect('/reports/m-task-reports');
-}
 
 module.exports = {
   managerDashboard,
   viewProjects,
   viewTasks,
   viewUsers,
-  viewReports,
+  
 };

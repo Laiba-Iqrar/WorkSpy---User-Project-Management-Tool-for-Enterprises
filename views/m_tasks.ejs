@@ -1,0 +1,24 @@
+<table>
+    <tr>
+      <th>Task</th>
+      <th>Assigned User</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    <% tasks.forEach(task => { %>
+      <tr>
+        <td><%= task.task_description %></td>
+        <td><%= task.assigned_user %></td>
+        <td><%= task.status %></td>
+        <td>
+          <a href="/m-tasks/view/<%= task.task_id %>">View</a>
+          <a href="/m-tasks/edit/<%= task.task_id %>">Edit</a>
+          <form method="POST" action="/m-tasks/delete/<%= task.task_id %>" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+  <a href="/m-tasks/create">Create Task</a>
+  

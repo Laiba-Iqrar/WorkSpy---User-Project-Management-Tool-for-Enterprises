@@ -7,8 +7,15 @@ const router = express.Router();
 // Secure all manager routes
 router.get('/manager-dashboard', managerDashboard);
 router.get('/manager-projects', viewProjects);
-router.get('/manager-tasks', viewTasks);
-router.get('/manager-users', viewUsers);
-router.get('/manager-reports', viewReports);
+router.get('/m-tasks', async (req, res) => {
+    const { viewTasksPage } = require('../controllers/m_tasksController');
+    await viewTasksPage(req, res);
+  });
+
+router.get('/manager-users', async (req, res) => {
+    const { viewUsersPage } = require('../controllers/m_usersController');
+    await viewUsersPage(req, res);
+  });
+
 
 module.exports = router;

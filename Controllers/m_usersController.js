@@ -1,20 +1,42 @@
-const { getUsers, addUser, removeUser } = require('../models/m_usersModel');
+const { getUsersUnderManager, addUser, deleteUser } = require('../models/m_usersModel');
 
-async function listUsers(req, res) {
-  const managerId = req.session.userId;
-  const users = await getUsers(managerId);
-  res.render('m_users', { users });
+// Display all users for the manager
+async function viewUsersPage(req, res) {
+  if (!req.session.userId) {
+    return res.redirect('/login'); // Redirect if no session
+  }
+
+  try {
+    const users = await getUsersUnderManager(req.session.userId);
+    res.render('m_users', { users });
+  } catch (error) {
+    console.error('Error loading users page:', error);
+    res.status(500).send('Error loading users page');
+  }
 }
 
-async function createUser(req, res) {
-  await addUser(req.body);
-  res.redirect('/manager-users');
+// Add a new user
+async function addUserAction(req, res) {
+  try {
+    const userData = req.body;
+    await addUser(userData);
+    res.redirect('/manager-users');
+  } catch (error) {
+    console.error('Error adding user:', error);
+    res.status(500).send('Error adding user');
+  }
 }
 
-async function deleteUser(req, res) {
-  const { userId } = req.params;
-  await removeUser(userId);
-  res.redirect('/manager-users');
+// Delete a user (soft delete)
+async function deleteUserAction(req, res) {
+  try {
+    const { userId } = req.params;
+    await deleteUser(userId);
+    res.redirect('/manager-users');
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).send('Error deleting user');
+  }
 }
 
-module.exports = { listUsers, createUser, deleteUser };
+module.exports = { viewUsersPage, addUserAction, deleteUserAction };
