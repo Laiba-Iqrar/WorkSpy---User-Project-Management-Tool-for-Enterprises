@@ -30,11 +30,17 @@ async function viewUsers(req, res) {
   res.redirect('/manager-users');
 }
 
+// function viewReports(req, res) {
+//   res.redirect('/manager-dashboard');
+// }
+
+
 
 module.exports = {
   managerDashboard,
   viewProjects,
   viewTasks,
   viewUsers,
+
   
 };

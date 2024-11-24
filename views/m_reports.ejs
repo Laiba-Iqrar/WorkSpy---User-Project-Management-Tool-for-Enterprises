@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .chart-container {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    .summary-card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    .summary-card h3 {
+      margin: 10px 0;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: 150px; /* Reduced height for smaller charts */
+    }
+
+    @media (max-width: 600px) {
+      canvas {
+        height: 120px; /* Smaller height for small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Manager Dashboard</h1>
+
+  <!-- Dashboard Overview -->
+  <div class="chart-grid">
+    <!-- Total Projects Card -->
+    <div class="summary-card">
+      <h3>Total Projects</h3>
+      <p><strong>12</strong> Projects</p>
+      <canvas id="projectStatusChart"></canvas>
+    </div>
+
+    <!-- Project Progress Chart -->
+    <div class="chart-container">
+      <h3>Project Progress</h3>
+      <canvas id="projectProgressChart"></canvas>
+    </div>
+
+    <!-- Task Breakdown Chart -->
+    <div class="chart-container">
+      <h3>Task Breakdown</h3>
+      <canvas id="taskBreakdownChart"></canvas>
+    </div>
+
+    <!-- Task Status Chart -->
+    <div class="chart-container">
+      <h3>Task Status Summary</h3>
+      <canvas id="taskChart"></canvas>
+    </div>
+
+    <!-- Timesheet Status Chart -->
+    <div class="chart-container">
+      <h3>Timesheet Status Summary</h3>
+      <canvas id="timesheetChart"></canvas>
+    </div>
+
+    <!-- Pending Approvals Chart -->
+    <div class="chart-container">
+      <h3>Pending Approvals</h3>
+      <canvas id="pendingApprovalChart"></canvas>
+    </div>
+
+    <!-- Leave Request Chart -->
+    <div class="chart-container">
+      <h3>Leave Request Summary</h3>
+      <canvas id="leaveRequestChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Sample data (replace with actual data from the backend)
+    const totalProjects = 12;
+
+    const projectStatusData = [
+      { status: 'Completed', count: 6 },
+      { status: 'In Progress', count: 4 },
+      { status: 'Not Started', count: 2 }
+    ];
+
+    const projectProgressData = [
+      { project: 'Project A', progress: 80 },
+      { project: 'Project B', progress: 45 },
+      { project: 'Project C', progress: 70 },
+      { project: 'Project D', progress: 30 }
+    ];
+
+    const taskBreakdownData = [
+      { status: 'Completed', count: 50 },
+      { status: 'In Progress', count: 30 },
+      { status: 'Pending', count: 20 }
+    ];
+
+    const taskSummary = [
+      { status: 'Completed', count: 7 },
+      { status: 'Pending', count: 3 }
+    ];
+
+    const timesheetSummary = [
+      { status: 'Approved', total_hours: 40 },
+      { status: 'Pending', total_hours: 10 }
+    ];
+
+    const pendingApprovals = 5;
+
+    const leaveRequestSummary = [
+      { leave_type: 'Sick Leave', count: 1 },
+      { leave_type: 'Annual Leave', count: 2 }
+    ];
+
+    // Project Status Chart
+    const projectStatusCtx = document.getElementById('projectStatusChart').getContext('2d');
+    new Chart(projectStatusCtx, {
+      type: 'pie',
+      data: {
+        labels: projectStatusData.map(item => item.status),
+        datasets: [{
+          data: projectStatusData.map(item => item.count),
+          backgroundColor: ['#4BC0C0', '#36A2EB', '#FFCE56']
+        }]
+      },
+    });
+
+    // Project Progress Chart
+    const projectProgressCtx = document.getElementById('projectProgressChart').getContext('2d');
+    new Chart(projectProgressCtx, {
+      type: 'bar',
+      data: {
+        labels: projectProgressData.map(item => item.project),
+        datasets: [{
+          label: 'Progress (%)',
+          data: projectProgressData.map(item => item.progress),
+          backgroundColor: '#36A2EB'
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true, max: 100 }
+        }
+      }
+    });
+
+    // Task Breakdown Chart
+    const taskBreakdownCtx = document.getElementById('taskBreakdownChart').getContext('2d');
+    new Chart(taskBreakdownCtx, {
+      type: 'doughnut',
+      data: {
+        labels: taskBreakdownData.map(item => item.status),
+        datasets: [{
+          data: taskBreakdownData.map(item => item.count),
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+        }]
+      },
+    });
+
+    // Task Status Chart
+    const taskCtx = document.getElementById('taskChart').getContext('2d');
+    new Chart(taskCtx, {
+      type: 'bar',
+      data: {
+        labels: taskSummary.map(item => item.status),
+        datasets: [{
+          label: 'Task Count',
+          data: taskSummary.map(item => item.count),
+          backgroundColor: ['#FF6384', '#36A2EB']
+        }]
+      },
+    });
+
+    // Timesheet Status Chart
+    const timesheetCtx = document.getElementById('timesheetChart').getContext('2d');
+    new Chart(timesheetCtx, {
+      type: 'pie',
+      data: {
+        labels: timesheetSummary.map(item => item.status),
+        datasets: [{
+          label: 'Total Hours',
+          data: timesheetSummary.map(item => item.total_hours),
+          backgroundColor: ['#4BC0C0', '#FFCE56']
+        }]
+      },
+    });
+
+    // Pending Approvals Chart
+    const pendingApprovalCtx = document.getElementById('pendingApprovalChart').getContext('2d');
+    new Chart(pendingApprovalCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Pending Approvals'],
+        datasets: [{
+          label: 'Approvals',
+          data: [pendingApprovals],
+          backgroundColor: ['#FF6384']
+        }]
+      },
+    });
+
+    // Leave Request Chart
+    const leaveRequestCtx = document.getElementById('leaveRequestChart').getContext('2d');
+    new Chart(leaveRequestCtx, {
+      type: 'polarArea',
+      data: {
+        labels: leaveRequestSummary.map(item => item.leave_type),
+        datasets: [{
+          label: 'Leave Count',
+          data: leaveRequestSummary.map(item => item.count),
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+        }]
+      },
+    });
+  </script>
+</body>
+</html>
