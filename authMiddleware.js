@@ -18,11 +18,14 @@ function authenticateJWT(req, res, next) {
 }
 
 function ensureManager(req, res, next) {
-  if (req.session.role === 'manager') {
-    return next();
+  if (req.session.userId) {
+      req.user = { userId: req.session.userId };  // Set req.user if session exists
+      return next();
+  } else {
+      return res.redirect('/login');
   }
-  res.redirect('/login');
 }
+
 
 function ensureAuthenticated(req, res, next) {
   if (req.session.userId) {

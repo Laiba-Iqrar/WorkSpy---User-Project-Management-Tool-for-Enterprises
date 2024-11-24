@@ -1,0 +1,63 @@
+<!-- views/m_timesheets.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timesheets</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <h1>Timesheets</h1>
+
+    <!-- Filter Links -->
+    <div>
+        <a href="/m_timesheets?filter=pending" style="<%= filter === 'pending' ? 'font-weight: bold;' : '' %>">Pending</a> |
+        <a href="/m_timesheets?filter=approved" style="<%= filter === 'approved' ? 'font-weight: bold;' : '' %>">Approved</a> |
+        <a href="/m_timesheets?filter=rejected" style="<%= filter === 'rejected' ? 'font-weight: bold;' : '' %>">Rejected</a>
+    </div>
+
+    <% if (Object.keys(timesheets).length === 0) { %>
+        <p>No timesheets found for the selected filter.</p>
+    <% } else { %>
+        <% Object.keys(timesheets).forEach(employee => { %>
+            <h2><%= employee %></h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task Description</th>
+                        <th>Total Hours</th>
+                        <th>Timesheet Comments</th>
+                        <% if (filter === 'pending') { %>
+                            <th>Actions</th>
+                        <% } else { %>
+                            <th>Status</th>
+                            <th>Manager Comments</th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% timesheets[employee].forEach(sheet => { %>
+                        <tr>
+                            <td><%= sheet.task_description %></td>
+                            <td><%= sheet.total_hours %></td>
+                            <td><%= sheet.timesheet_comments %></td>
+                            <% if (filter === 'pending') { %>
+                                <td>
+                                    <form action="/m_timesheets/approve" method="POST">
+                                        <input type="hidden" name="timesheetId" value="<%= sheet.timesheet_id %>">
+                                        <input type="text" name="comments" placeholder="Manager Comments" required>
+                                        <button type="submit" name="status" value="approved">Approve</button>
+                                        <button type="submit" name="status" value="rejected">Reject</button>
+                                    </form>
+                                </td>
+                            <% } else { %>
+                                <td><%= sheet.approval_status %></td>
+                                <td><%= sheet.approval_comments %></td>
+                            <% } %>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% }) %>
+    <% } %>
+</body>
+</html>

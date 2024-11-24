@@ -10,6 +10,9 @@ const mprojectRoutes = require('./routes/m_projectsRoutes');
 const mTasksRoutes = require('./routes/m_tasksRoutes');
 const mDashboardRoutes = require('./routes/m_dashboardRoutes');
 const mUsersRoutes = require('./routes/m_usersRoutes');
+const mtimesheetRoutes = require('./routes/m_timesheetRoutes');
+const mreportRoutes = require('./routes/m_reportsRoutes');
+
 
 
 
@@ -51,6 +54,9 @@ app.use('/', mDashboardRoutes);
 app.use('/m-projects', mprojectRoutes);
 app.use('/m-tasks', mTasksRoutes);
 app.use('/manager-users', mUsersRoutes);
+app.use('/', mreportRoutes);
+
+
 
 
 
@@ -61,5 +67,10 @@ app.use('/manager-users', mUsersRoutes);
 // Protected routes
 app.use(isAuthenticated); // Middleware applied here
 app.use(userRoutes);
+app.use('/m_timesheets', isAuthenticated, mtimesheetRoutes);
+app.use('/manager-users', mUsersRoutes);
+// app.use('')
+
+
 
 app.listen(3000, () => console.log('Server running on http://localhost:3000'));

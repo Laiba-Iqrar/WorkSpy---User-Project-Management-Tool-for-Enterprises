@@ -17,5 +17,7 @@ router.get('/manager-users', async (req, res) => {
     await viewUsersPage(req, res);
   });
 
+//   router.get('/view-reports', viewReports);
+
 
 module.exports = router;
