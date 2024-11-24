@@ -36,7 +36,7 @@
 
 1. **Clone Repository**:  
    ```bash  
-   git clone <repository-url>  
+   git clone https://github.com/Laiba-Iqrar/WorkSpy---User-Project-Management-Tool-for-Enterprises.git 
    cd workspy  
    ```  
 
