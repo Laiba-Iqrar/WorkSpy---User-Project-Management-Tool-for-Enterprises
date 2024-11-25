@@ -1,72 +1,84 @@
 const db = require('../db');
 
-// Fetch aggregated task data
+// Task Status Summary
 async function getTaskStatusSummary(managerId) {
-  const [rows] = await db.query(
-    `
-    SELECT status, COUNT(*) AS count
+  const query = `
+    SELECT status, COUNT(*) as count 
     FROM tasks
-    WHERE assign_by = ?
-    GROUP BY status
-    `,
-    [managerId]
-  );
-  return rows;
+    GROUP BY status;
+  `;
+  const [results] = await db.execute(query);
+  return results;
 }
 
-// Fetch timesheet data
+// Timesheet Summary
 async function getTimesheetSummary(managerId) {
-  const [rows] = await db.query(
-    `
-    SELECT t.status, SUM(t.total_hours) AS total_hours
-    FROM timesheets t
-    JOIN tasks ta ON t.task_id = ta.task_id
-    WHERE ta.assign_by = ?
-    GROUP BY t.status
-    `,
-    [managerId]
-  );
-  return rows;
+  const query = `
+    SELECT status, SUM(total_hours) as total_hours 
+    FROM timesheets
+    GROUP BY status;
+  `;
+  const [results] = await db.execute(query);
+  return results;
 }
 
-// Fetch pending approvals
+// Pending Approvals
 async function getPendingApprovals(managerId) {
-  const [rows] = await db.query(
-    `
-    SELECT COUNT(*) AS pending_approvals
+  const query = `
+    SELECT COUNT(*) as pendingApprovals
     FROM approvals
-    WHERE manager_id = ? AND status = 'pending'
-    `,
-    [managerId]
-  );
-  return rows[0]?.pending_approvals || 0;
+    WHERE status = 'pending';
+  `;
+  const [results] = await db.execute(query);
+  return results[0];
 }
-// Fetch leave request summary
+
+// Leave Request Summary
 async function getLeaveRequestSummary(managerId) {
-    const [rows] = await db.query(
-      `
-      SELECT leave_type, COUNT(*) AS count
-      FROM leave_requests
-      WHERE status = 'pending'
-      GROUP BY leave_type
-      `
-    );
-    return rows;
+  const query = `
+    SELECT leave_type, COUNT(*) as count 
+    FROM leave_requests
+    GROUP BY leave_type;
+  `;
+  const [results] = await db.execute(query);
+  return results;
 }
-  
-  // Fetch task status changes summary
+
+// Task Status Change Summary
 async function getTaskStatusChangeSummary(managerId) {
-    const [rows] = await db.query(
-      `
-      SELECT new_status, COUNT(*) AS count
-      FROM task_status_changes
-      WHERE changed_by = ?
-      GROUP BY new_status
-      `,
-      [managerId]
-    );
-    return rows;
+  const query = `
+    SELECT previous_status, new_status, COUNT(*) as count 
+    FROM task_status_changes
+    GROUP BY previous_status, new_status;
+  `;
+  const [results] = await db.execute(query);
+  return results;
 }
+
+// Projects with deadlines
+async function getProjectsWithDeadlines() {
+    const query = `
+      SELECT project_name, deadline 
+      FROM projects 
+      ORDER BY deadline ASC 
+      LIMIT 5;
+    `;
+    const [results] = await db.execute(query);
+    return results;
+  }
+  
+  // Tasks with assignees
+  async function getTasksWithAssignees() {
+    const query = `
+      SELECT tasks.task_description, users.user_id, CONCAT(users.first_name, ' ', users.last_name) as assignee
+      FROM tasks
+      JOIN users ON tasks.user_id = users.user_id
+      LIMIT 5;
+    `;
+    const [results] = await db.execute(query);
+    return results;
+  }
+  
 
 module.exports = {
   getTaskStatusSummary,
@@ -74,4 +86,6 @@ module.exports = {
   getPendingApprovals,
   getLeaveRequestSummary,
   getTaskStatusChangeSummary,
+  getProjectsWithDeadlines,
+  getTasksWithAssignees,
 };

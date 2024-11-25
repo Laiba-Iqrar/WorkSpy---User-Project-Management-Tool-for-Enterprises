@@ -5,7 +5,7 @@ const {
   createNewProject,
   updateExistingProject,
   deleteExistingProject,
-} = require('../controllers/m_projectsController');
+} = require('../Controllers/m_projectsController');
 const { getProjectDetails } = require('../models/m_projectsModel');
 
 const router = express.Router();

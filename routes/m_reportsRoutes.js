@@ -1,5 +1,5 @@
 const express = require('express');
-const { viewReports } = require('../controllers/m_reportsController');
+const { viewReports } = require('../Controllers/m_reportsController');
 const { ensureAuthenticated } = require('../authMiddleware');
 
 const router = express.Router();

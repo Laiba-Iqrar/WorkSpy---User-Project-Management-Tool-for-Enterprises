@@ -4,6 +4,8 @@ const {
     getPendingApprovals,
     getLeaveRequestSummary,
     getTaskStatusChangeSummary,
+    getProjectsWithDeadlines,
+    getTasksWithAssignees,
   } = require('../models/m_reportsModel');
   
   async function viewReports(req, res) {
@@ -15,6 +17,8 @@ const {
       const pendingApprovals = await getPendingApprovals(managerId);
       const leaveRequestSummary = await getLeaveRequestSummary(managerId);
       const taskStatusChangeSummary = await getTaskStatusChangeSummary(managerId);
+      const projectsWithDeadlines = await getProjectsWithDeadlines();
+      const tasksWithAssignees = await getTasksWithAssignees();
   
       res.render('m_reports', {
         taskSummary,
@@ -22,6 +26,8 @@ const {
         pendingApprovals,
         leaveRequestSummary,
         taskStatusChangeSummary,
+        projectsWithDeadlines,
+        tasksWithAssignees,
       });
     } catch (error) {
       console.error('Error fetching reports:', error);

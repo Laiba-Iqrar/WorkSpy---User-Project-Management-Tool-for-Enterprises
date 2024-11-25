@@ -1,9 +1,11 @@
+// routes/m_timesheetRoutes.js
 const express = require('express');
-const { viewReports } = require('../controllers/m_reportsController');
-const { ensureAuthenticated } = require('../authMiddleware');
-
+const { m_viewTimesheets, m_updateApproval } = require('../Controllers/m_timesheetController');
 const router = express.Router();
+const { ensureManager } = require('../authMiddleware');
 
-router.get('/view-reports', ensureAuthenticated, viewReports);
+// Timesheet routes
+router.get('/', ensureManager, m_viewTimesheets); // View timesheets with filter
+router.post('/approve', ensureManager, m_updateApproval); // Approve/Reject timesheet
 
 module.exports = router;

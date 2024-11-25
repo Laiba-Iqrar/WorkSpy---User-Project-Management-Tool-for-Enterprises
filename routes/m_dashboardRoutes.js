@@ -8,12 +8,12 @@ const router = express.Router();
 router.get('/manager-dashboard', managerDashboard);
 router.get('/manager-projects', viewProjects);
 router.get('/m-tasks', async (req, res) => {
-    const { viewTasksPage } = require('../controllers/m_tasksController');
+    const { viewTasksPage } = require('../Controllers/m_tasksController');
     await viewTasksPage(req, res);
   });
 
 router.get('/manager-users', async (req, res) => {
-    const { viewUsersPage } = require('../controllers/m_usersController');
+    const { viewUsersPage } = require('../Controllers/m_usersController');
     await viewUsersPage(req, res);
   });
 
