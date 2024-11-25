@@ -12,10 +12,7 @@
     <input type="text" id="task_description" name="task_description" value="<%= task.task_description %>" required>
     <br><br>
 
-    <label for="assigned_user">Assigned User:</label>
-    <input type="text" id="assigned_user" name="assigned_user" value="<%= task.assigned_user %>" required>
-    <br><br>
-
+ 
     <label for="status">Status:</label>
     <select id="status" name="status" required>
       <option value="pending" <%= task.status === 'pending' ? 'selected' : '' %>>Pending</option>

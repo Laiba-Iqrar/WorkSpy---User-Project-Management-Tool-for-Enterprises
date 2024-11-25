@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Task</title>
+</head>
+<body>
+  <h1>Create Task</h1>
+  <form method="POST" action="/m-tasks/create">
+    <label for="task_description">Task Description:</label>
+    <input type="text" id="task_description" name="task_description" required>
+    <br><br>
+
+    <label for="project_id">Project:</label>
+    <select id="project_id" name="project_id" required>
+      <% projects.forEach(project => { %>
+        <option value="<%= project.project_id %>"><%= project.project_name %></option>
+      <% }) %>
+    </select>
+    <br><br>
+
+    <label for="user_id">Assign To:</label>
+    <select id="user_id" name="user_id" required>
+      <% users.forEach(user => { %>
+        <option value="<%= user.user_id %>"><%= user.first_name %> <%= user.last_name %></option>
+      <% }) %>
+    </select>
+    <br><br>
+
+    <label for="assign_by">Assign By:</label>
+    <input type="text" id="assign_by" name="assign_by" value="<%= userId %>" readonly>
+    <br><br>
+
+    <button type="submit">Create Task</button>
+  </form>
+  <a href="/m-tasks">Back to Tasks</a>
+</body>
+</html>

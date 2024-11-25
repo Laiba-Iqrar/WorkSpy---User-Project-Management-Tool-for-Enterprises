@@ -21,7 +21,9 @@ const mreportRoutes = require('./routes/m_reportsRoutes');
 
 
 const app = express();
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.set('view engine', 'ejs');
+app.set('views', './views');
 // Middleware for session management
 app.use(
   session({
@@ -32,9 +34,7 @@ app.use(
   })
 );
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.set('view engine', 'ejs');
-app.set('views', './views');
+
 
 // Middleware to protect restricted routes
 function isAuthenticated(req, res, next) {
@@ -53,7 +53,7 @@ app.use('/reports', taskReportRoutes); // Task Reports
 app.use('/', mDashboardRoutes);
 app.use('/m-projects', mprojectRoutes);
 app.use('/m-tasks', mTasksRoutes);
-app.use('/manager-users', mUsersRoutes);
+app.use('/', mUsersRoutes);
 app.use('/', mreportRoutes);
 
 
@@ -67,7 +67,7 @@ app.use('/', mreportRoutes);
 // Protected routes
 app.use(isAuthenticated); // Middleware applied here
 app.use(userRoutes);
-app.use('/m_timesheets', isAuthenticated, mtimesheetRoutes);
+app.use('/m_timesheets', mtimesheetRoutes);
 app.use('/manager-users', mUsersRoutes);
 // app.use('')
 
