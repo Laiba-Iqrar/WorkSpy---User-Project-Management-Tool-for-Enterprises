@@ -1,6 +1,8 @@
 const express = require('express');
 const { loginPage, login, logout } = require('../controllers/authController');
 const { userDashboard } = require('../controllers/userController');
+const bcrypt = require('bcrypt'); // For password hashing comparison
+
 const router = express.Router();
 
 router.get('/login', loginPage);

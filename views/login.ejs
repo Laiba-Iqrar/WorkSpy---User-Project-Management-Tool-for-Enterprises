@@ -6,8 +6,12 @@
 <body>
   <h1>Login</h1>
   <form action="/login" method="POST">
-    <label for="userId">User ID:</label>
-    <input type="text" name="userId" id="userId" required>
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required>
+    <br>
     <button type="submit">Login</button>
   </form>
   <% if (error) { %>

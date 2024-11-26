@@ -15,17 +15,23 @@ async function viewUsersPage(req, res) {
   }
 }
 
-// Add a new user
+// Add a new user with session's manager ID
 async function addUserAction(req, res) {
+  if (!req.session.userId) {
+    return res.redirect('/login'); // Ensure session exists
+  }
+
   try {
     const userData = req.body;
-    await addUser(userData);
+    const managerId = req.session.userId; // Get manager ID from session
+    await addUser(userData, managerId);
     res.redirect('/manager-users');
   } catch (error) {
     console.error('Error adding user:', error);
     res.status(500).send('Error adding user');
   }
 }
+
 
 // Delete a user (soft delete)
 async function deleteUserAction(req, res) {
