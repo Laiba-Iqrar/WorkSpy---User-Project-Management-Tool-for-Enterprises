@@ -36,6 +36,8 @@ app.use(
 
 
 
+
+
 // Middleware to protect restricted routes
 function isAuthenticated(req, res, next) {
   if (req.session.userId) {
