@@ -1,43 +1,242 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects Management</title>
-  <link rel="stylesheet" href="/styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #F9F9F9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Header Styling */
+    .header {
+      background-color: #3B7A57; /* Professional green */
+      color: #FFF;
+      padding: 15px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header-content {
+      text-align: center;
+    }
+
+    .header-title {
+      font-size: 28px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 2px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    /* Main Content Styling */
+    .container {
+      padding: 100px 20px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* Links Styling */
+    .links {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #FFFFFF;
+      font-weight: bold;
+      margin-right: 15px;
+      font-size: 16px;  /* Reduced font size */
+      padding: 6px 12px;  /* Reduced padding */
+      border-radius: 4px;  /* Slightly smaller border-radius */
+      transition: all 0.3s;
+    }
+
+    .links a.back-btn {
+      color: #F26D5B;
+      border: 1px solid #F26D5B;
+    }
+
+    .links a.create-btn {
+      color: #F26D5B;
+      border: 1px solid #F26D5B;
+    }
+
+    .links a:hover {
+      color: #fff;
+    }
+
+    .links a.back-btn:hover {
+      background-color: #3b7a57;
+      border-color: #3b7a57;
+    }
+
+    .links a.create-btn:hover {
+      background-color: #3b7a57;
+      border-color: #3b7a57;
+    }
+
+    /* Table Styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background-color: #fff;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #D3D3D3; /* Lightish blue */
+      color: black;
+      font-weight: normal;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f4f4f4;
+    }
+
+    tr:hover td {
+      background-color: #f1f1f1;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-around;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .action-buttons a {
+      color: #4F8F8F;
+      font-size: 18px;
+      padding: 8px 15px;
+      border-radius: 8px;
+      border: 1px solid #4F8F8F;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .action-buttons a:hover {
+      background-color: #F26D5B;
+      color: white;
+      border-color: #F26D5B;
+    }
+
+    /* Delete Button Styling */
+    .delete-btn {
+      color: red;
+      font-size: 18px;
+      padding: 8px 15px;
+      border: 1px solid transparent;
+      background-color: transparent;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .delete-btn:hover {
+      color: white;
+      background-color: #F26D5B;
+    }
+
+    /* Footer Styling */
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #3B7A57; /* Professional black footer */
+      color: #FFF;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-  <h1>Projects</h1>
-  <a href="/manager-dashboard">Back to Dashboard</a>
-  <a href="/m-projects/new">Create New Project</a>
 
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Project Name</th>
-        <th>Milestone</th>
-        <th>Deadline</th>
-        <th>Tasks Completed / Total Tasks</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% projects.forEach(project => { %>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-title">WorkSpy</div>
+      <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="links">
+      <a href="/manager-dashboard" class="back-btn">Back to Dashboard</a>
+      <a href="/m-projects/new" class="create-btn">Create New Project</a>
+    </div>
+
+    <!-- Projects Table -->
+    <h1>PROJECTS</h1>
+    <table>
+      <thead>
         <tr>
-          <td><%= project.project_name %></td>
-          <td><%= project.milestone %></td>
-          <td><%= project.deadline %></td>
-          <td><%= project.completed_tasks %> / <%= project.total_tasks %></td>
-          <td><%= project.status %></td>
-          <td>
-            <a href="/m-projects/details/<%= project.project_id %>">View</a> |
-            <a href="/m-projects/edit/<%= project.project_id %>">Edit</a> |
-            <form action="/m-projects/delete/<%= project.project_id %>" method="POST" style="display:inline;">
-              <button type="submit">Delete</button>
-            </form>
-          </td>
+          <th>Project Name</th>
+          <th>Milestone</th>
+          <th>Deadline</th>
+          <th>Tasks Completed / Total Tasks</th>
+          <th>Status</th>
+          <th>Actions</th>
         </tr>
-      <% }) %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% projects.forEach(project => { %>
+          <tr>
+            <td><%= project.project_name %></td>
+            <td><%= project.milestone %></td>
+            <td><%= project.deadline %></td>
+            <td><%= project.completed_tasks %> / <%= project.total_tasks %></td>
+            <td><%= project.status %></td>
+            <td class="action-buttons">
+              <a href="/m-projects/details/<%= project.project_id %>"><i class="fas fa-eye"></i> View</a>
+              <a href="/m-projects/edit/<%= project.project_id %>"><i class="fas fa-pencil-alt"></i> Edit</a>
+              <form action="/m-projects/delete/<%= project.project_id %>" method="POST" style="display:inline;">
+                <button type="submit" class="delete-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2024 WorkSpy. All Rights Reserved to 'M-A-L'.
+  </footer>
+
 </body>
 </html>

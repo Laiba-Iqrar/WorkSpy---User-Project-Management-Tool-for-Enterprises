@@ -4,36 +4,190 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Task</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #F4F4F9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Header Styling */
+    .header {
+      background-color: #3B7A57;
+      color: #FFF;
+      padding: 15px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      text-align: center;
+    }
+
+    .header-title {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 5px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    /* Form Container */
+    .form-container {
+      max-width: 800px;
+      background-color: #FFF;
+      margin: 100px auto 30px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      color: black;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      color: #555;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #CCC;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input[readonly] {
+      background-color: #F9F9F9;
+      color: #999;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #F26D5B;
+      color: #FFF;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #2E6448;
+    }
+
+    /* Icon Styling */
+    .icon {
+      color: gray;
+      margin-right: 10px;
+    }
+
+    /* Back Link Styling */
+    .back-link {
+      display: inline-block;
+      margin: 20px auto;
+      color: black;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: 2px solid #F26D5B;
+      border-radius: 5px;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back-link:hover {
+      background-color: #FFF;
+      color: #3B7A57;
+    }
+
+    .back-link i {
+      margin-right: 8px;
+    }
+
+    /* Footer Styling */
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #3B7A57;
+      color: #FFF;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-  <h1>Create Task</h1>
-  <form method="POST" action="/m-tasks/create">
-    <label for="task_description">Task Description:</label>
-    <input type="text" id="task_description" name="task_description" required>
-    <br><br>
 
-    <label for="project_id">Project:</label>
-    <select id="project_id" name="project_id" required>
-      <% projects.forEach(project => { %>
-        <option value="<%= project.project_id %>"><%= project.project_name %></option>
-      <% }) %>
-    </select>
-    <br><br>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-title">WorkSpy</div>
+      <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+    </div>
+  </header>
 
-    <label for="user_id">Assign To:</label>
-    <select id="user_id" name="user_id" required>
-      <% users.forEach(user => { %>
-        <option value="<%= user.user_id %>"><%= user.first_name %> <%= user.last_name %></option>
-      <% }) %>
-    </select>
-    <br><br>
+  <!-- Form Container -->
+  <div class="form-container">
+    <h1>CREATE TASK</h1>
+    <form method="POST" action="/m-tasks/create">
+      <label for="task_description">Task Description:</label>
+      <input type="text" id="task_description" name="task_description" required>
 
-    <label for="assign_by">Assign By:</label>
-    <input type="text" id="assign_by" name="assign_by" value="<%= userId %>" readonly>
-    <br><br>
+      <label for="project_id">Project:</label>
+      <select id="project_id" name="project_id" required>
+        <% projects.forEach(project => { %>
+          <option value="<%= project.project_id %>"><%= project.project_name %></option>
+        <% }) %>
+      </select>
 
-    <button type="submit">Create Task</button>
-  </form>
-  <a href="/m-tasks">Back to Tasks</a>
+      <label for="user_id">Assign To:</label>
+      <select id="user_id" name="user_id" required>
+        <% users.forEach(user => { %>
+          <option value="<%= user.user_id %>"><%= user.first_name %> <%= user.last_name %></option>
+        <% }) %>
+      </select>
+
+      <label for="assign_by">Assign By:</label>
+      <input type="text" id="assign_by" name="assign_by" value="<%= userId %>" readonly>
+
+      <button type="submit">Create Task</button>
+    </form>
+    <a href="/m-tasks" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i>Back to Tasks
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2024 WorkSpy. All Rights Reserved to 'M-A-L'.
+  </footer>
+
 </body>
 </html>

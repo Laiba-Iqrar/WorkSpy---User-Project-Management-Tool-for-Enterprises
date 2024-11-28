@@ -1,47 +1,192 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task and Timesheet Reports</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    canvas {
-      max-width: 300px; /* Reduce chart size */
-      max-height: 300px;
-      margin: 20px auto;
+    /* General Styles */
+    body {
+      background-color: #F4F8FB;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
     }
+
+    /* Header Styling */
+    .header {
+      background: #3B7A57; /* Dark Green */
+      color: #FFF;
+      padding: 10px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-title {
+      font-size: 28px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 2px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: #FFF;
+      font-weight: normal;
+      padding: 10px 15px;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      background-color: gray; /* Coral */
+      color: #000;
+    }
+
+    /* Main Content */
+    .content {
+      margin: 20px auto;
+      width: 85%;
+      max-width: 1000px;
+      padding: 20px;
+    }
+
+    /* Chart Container */
     .chart-container {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
+      margin-top: 60px;
+      margin-bottom: 60px;
     }
+
+    /* Individual Chart Styling */
+    canvas {
+      max-width: 400px;
+      max-height: 400px;
+      margin: 20px auto;
+    }
+
+    h3 {
+      color: black;
+      font-size: 22px;
+      text-align: center;
+      margin-top: 100px;
+      font-weight: normal;
+    }
+
+    /* Footer Styling */
+    .footer {
+      text-align: center;
+      padding: 10px;
+      background: #3B7A57; /* Green */
+      color: white;
+      font-size: 12px;
+      position: relative;
+    }
+
+    /* Custom Badge and Button Styling */
+    .status-badge {
+      background-color: #F26D5B; /* Coral */
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .button-group {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .button-group button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3B7A57; /* Dark Green */
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button-group button:hover {
+      background-color: #285943; /* Darker Green */
+    }
+
   </style>
 </head>
 <body>
-  <h1>Task and Timesheet Reports</h1>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title">WORKSPY</div>
+    <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+    <div class="nav-menu">
+      <a href="/timesheets">Timesheets</a>
+      <a href="/leave/apply-leave">Apply for Leave</a>
+      <a href="/leave" >Leave List</a>
+      <a href="/reports/task-reports" class="active">View Task Reports</a>
+    </div>
+  </header>
 
-  <div class="chart-container">
-    <!-- Task Status Chart -->
-    <div>
-      <h3>Task Status Overview</h3>
-      <canvas id="taskStatusChart"></canvas>
+  <!-- Main Content -->
+  <div class="content">
+    <div class="chart-container">
+      <!-- Task Status Chart -->
+      <div>
+        <h3>Task Status Overview</h3>
+        <canvas id="taskStatusChart"></canvas>
+      </div>
+
+      <!-- Weekly Hours Chart -->
+      <div>
+        <h3>Weekly Hours Logged</h3>
+        <canvas id="weeklyHoursChart"></canvas>
+      </div>
+
+      <!-- Timesheet Approval Status Chart -->
+      <div>
+        <h3>Timesheet Approval Status</h3>
+        <canvas id="timesheetApprovalChart"></canvas>
+      </div>
     </div>
 
-    <!-- Weekly Hours Chart -->
-    <div>
-      <h3>Weekly Hours Logged</h3>
-      <canvas id="weeklyHoursChart"></canvas>
-    </div>
-
-    <!-- Timesheet Approval Status Chart -->
-    <div>
-      <h3>Timesheet Approval Status</h3>
-      <canvas id="timesheetApprovalChart"></canvas>
+    <!-- Buttons -->
+    <div class="button-group">
+        <button onclick="window.location.href='/dashboard'">Back</button>
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2024 WorkSpy. All Rights Reserved to 'M-A-L'.
+  </footer>
+
   <script>
     // Task Status Chart
-    
     const taskCtx = document.getElementById('taskStatusChart').getContext('2d');
     const taskChartData = <%- JSON.stringify(chartData.taskChartData) %>;
     new Chart(taskCtx, {
@@ -50,7 +195,7 @@
         labels: taskChartData.labels,
         datasets: [{
           data: taskChartData.values,
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'], // Add more colors as needed
+          backgroundColor: ['#F26D5B', '#FF6384', '#36A2EB', '#000000'], // Custom colors
         }]
       }
     });
@@ -65,7 +210,7 @@
         datasets: [{
           label: 'Hours Logged',
           data: weeklyHoursChartData.values,
-          borderColor: 'blue',
+          borderColor: '#F26D5B', // Custom color
           borderWidth: 2,
           fill: false,
         }]
@@ -87,7 +232,7 @@
         labels: timesheetChartData.labels,
         datasets: [{
           data: timesheetChartData.values,
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Add more colors as needed
+          backgroundColor: ['#F26D5B', '#FF6384', '#000000'], // Custom colors
         }]
       }
     });

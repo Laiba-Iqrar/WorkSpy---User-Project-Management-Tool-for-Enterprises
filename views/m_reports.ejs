@@ -11,11 +11,39 @@
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      background-color: #F4F4F9;
       padding: 0;
     }
 
     h1 {
       text-align: center;
+      color: #3B7A57;
+    }
+
+    /* Back Button Styles */
+    #backButton {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: transparent;
+      border: 2px solid #F26D5B;
+      color: black;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    #backButton:hover {
+      color: white;
+      background-color: #F26D5B;
+    }
+
+    #backButton span {
+      margin-right: 8px;
+      font-size: 20px;
     }
 
     .chart-grid {
@@ -40,6 +68,12 @@
   </style>
 </head>
 <body>
+  <!-- Back Button as a link to the Dashboard -->
+<a href="/manager-dashboard" id="backButton">
+  <span>&larr;</span> Back
+</a>
+
+
   <h1>Manager Dashboard</h1>
 
   <div class="chart-grid">
@@ -156,6 +190,7 @@
           borderColor: '#36A2EB',
           fill: false
         }]
+
       },
       options: {
         scales: {

@@ -1,13 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Users</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F4F4F9;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: black;
+      text-align: center;
+      margin-top: 140px;
+    }
+
+    h2 {
+      color: black;
+      text-align: center;
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #D3D3D3;
+      color: black;
+      font-weight: normal;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* Back Button Styles */
+    #backButton {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: transparent;
+      border: 2px solid #F26D5B;
+      color: #F26D5B;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      color: black;
+      margin: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #backButton:hover {
+      color: white;
+      background-color: #F26D5B;
+    }
+
+    #backButton span {
+      margin-right: 8px;
+      font-size: 20px;
+    }
+
+    /* Form Styling */
+    form {
+      margin: 20px auto;
+      width: 50%;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #F26D5B;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2f5a42;
+    }
+    
+
+    /* Header and Footer Styles */
+    header {
+      background-color: #3B7A57;
+            color: #FFF;
+            padding: 15px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-title {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .slogan {
+            font-size: 14px;
+            margin-top: 5px;
+            font-style: italic;
+            color: #FFDAB9;
+        }
+
+
+    footer {
+     text-align: center;
+            padding: 15px;
+            background-color: #3B7A57;
+            color: #FFF;
+            font-size: 14px;
+            bottom: 0;
+            width: 100%;
+    }
+
+  </style>
 </head>
 <body>
-  <h1>Users</h1>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title">WorkSpy</div>
+    <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+</header>
+
+  <h1>USERS</h1>
 
   <!-- Display Users -->
-  <table border="1">
+  <table>
     <thead>
       <tr>
         <th>Name</th>
@@ -49,5 +216,16 @@
     </label><br>
     <button type="submit">Add User</button>
   </form>
+
+  <!-- Back Button -->
+  <button id="backButton" onclick="window.location.href='/manager-dashboard';">
+    <span>&larr;</span> Back
+  </button>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 WorkSpy. All rights reserved to 'M-A-L'.</p>
+  </footer>
+
 </body>
 </html>

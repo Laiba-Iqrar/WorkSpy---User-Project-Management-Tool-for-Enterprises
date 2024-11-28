@@ -4,17 +4,142 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #F4F4F9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Header Styling */
+    .header {
+      background-color: #3B7A57; /* Green header */
+      color: #FFF;
+      padding: 15px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      text-align: center;
+    }
+
+    .header-title {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 5px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    /* Main Content Styling */
+    .container {
+      padding: 120px 20px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    /* Notebook-Inspired Project Details Styling */
+    .project-details {
+      background-color: #FFF;
+      padding: 30px;
+      border: 1px solid #D3D3D3;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+      background-image: url('https://www.transparenttextures.com/patterns/old-wall-1.png');
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      color: black; /* Black text color for project details */
+    }
+
+    .project-details h2 {
+      font-size: 26px;
+      font-weight: bold;
+      color: black; 
+      text-align: center;
+      border-bottom: 2px solid #3B7A57;
+      padding-bottom: 5px;
+    }
+
+    .project-details p {
+      font-size: 18px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .project-details strong {
+      font-weight: bold;
+      color: #4F8F8F;
+    }
+
+    /* Styling for Back Button - Centered */
+    .back-btn {
+      display: inline-block;
+      margin: 30px auto;
+      background-color: #F26D5B;
+      color: #FFF;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      display: block; /* Center the button */
+      width: fit-content;
+    }
+
+    .back-btn:hover {
+      background-color: #3B7A57;
+    }
+
+  </style>
 </head>
 <body>
-  <h1>Project Details</h1>
-  <% if (details) { %>
-    <p><strong>Project Name:</strong> <%= details.name %></p>
-    <p><strong>Description:</strong> <%= details.description %></p>
-    <p><strong>Created At:</strong> <%= details.created_at %></p>
-    <p><strong>Updated At:</strong> <%= details.updated_at %></p>
-    <a href="/m-projects">Back to Projects</a>
-  <% } else { %>
-    <p>No project details available.</p>
-  <% } %>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-title">WorkSpy</div>
+      <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Project Details Section -->
+    <div class="project-details">
+      <h2>PROJECT DETAILS</h2>
+      
+      <% if (details) { %>
+        <p><strong>Project Name:</strong> <%= details.project_name %></p>
+        <p><strong>Description:</strong> <%= details.description %></p>
+        <p><strong>Created At:</strong> <%= details.created_at %></p>
+        <p><strong>Updated At:</strong> <%= details.updated_at %></p>
+      <% } else { %>
+        <p>No project details available.</p>
+      <% } %>
+    </div>
+
+    <!-- Back Button -->
+    <a href="/m-projects" class="back-btn">Back to Projects</a>
+  </div>
+
 </body>
 </html>

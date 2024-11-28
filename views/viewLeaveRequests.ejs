@@ -1,6 +1,209 @@
-<h4>Leave Requests</h4>
-<ul>
-  <% leaveRequests.forEach(lr => { %>
-    <li><%= lr.leave_type %> - <%= lr.start_date %> to <%= lr.end_date %> - <%= lr.status %></li>
-  <% }) %>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Request List</title>
+  <style>
+    /* General Styles */
+    body {
+      background-color: #F4F8FB;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+     /* Header Styling */
+     .header {
+      background: #3B7A57; /* Dark Green */
+      color: #FFF;
+      padding: 10px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-title {
+      font-size: 28px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 2px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: #FFF;
+      font-weight: normal;
+      padding: 10px 15px;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      background-color: gray; /* Coral */
+      color: #000;
+    }
+
+    /* Page Heading */
+    .page-heading {
+      text-align: center;
+      margin: 100px auto 20px;
+      font-size: 26px;
+      font-weight: bold;
+      color: #3B7A57;
+    }
+
+    /* Main Content */
+    .content {
+      margin: 20px auto;
+      width: 85%;
+      max-width: 1000px;
+      padding: 20px;
+    }
+
+    /* Leave Request List */
+    .leave-requests-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .leave-item {
+      background: #FFF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-left: 6px solid #3B7A57; /* Green accent */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .leave-details {
+      flex: 1;
+      margin-right: 20px; /* Adding space between leave details and status */
+    }
+
+    .leave-title {
+      font-size: 20px;
+      color: black;
+      margin: 0;
+      font-weight: bold;
+      font-weight: normal;
+    }
+
+    .leave-info {
+      font-size: 14px;
+      color: #666;
+      margin: 5px 0;
+    }
+
+    .status-badge {
+      background-color: #F26D5B; /* Coral */
+      color: #FFF;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* Button Group */
+    .button-group {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .button-group button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #F26D5B; /* Dark Green */
+      color: #FFF;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button-group button:hover {
+      background-color: #285943; /* Darker Green */
+    }
+
+    /* Footer Styling */
+    .footer {
+      text-align: center;
+      padding: 10px;
+      background: #3B7A57; /* Dark Green */
+      color: #FFF;
+      font-size: 12px;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title">WORKSPY</div>
+    <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+    <div class="nav-menu">
+      <a href="/timesheets">Timesheets</a>
+      <a href="/leave/apply-leave">Apply for Leave</a>
+      <a href="/leave" class="active">Leave List</a>
+      <a href="/reports/task-reports">View Task Reports</a>
+    </div>
+  </header>
+
+  <!-- Page Heading -->
+  <div class="page-heading">Leave Request List</div>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="leave-requests-container">
+      <% leaveRequests.forEach(lr => { %>
+        <div class="leave-item">
+          <div class="leave-details">
+            <p class="leave-title"><%= lr.leave_type %> Leave</p>
+            <p class="leave-info">
+              <strong>From:</strong> <%= new Date(lr.start_date).toDateString() %><br>
+              <strong>To:</strong> <%= new Date(lr.end_date).toDateString() %>
+            </p>
+          </div>
+          <div>
+            <span class="status-badge"><%= lr.status %></span>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-group">
+      <button onclick="window.location.href='/dashboard'">Back</button>
+    </div>
+    
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2024 WorkSpy. All Rights Reserved to 'M-A-L'.
+  </footer>
+</body>
+</html>

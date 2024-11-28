@@ -1,19 +1,277 @@
-<h3>Timesheets</h3>
-<form action="/timesheets" method="POST">
-  <label>Task ID:</label><input type="text" name="taskId" required>
-  <label>Total Hours:</label><input type="number" step="0.1" name="totalHours" required>
-  <label>Status:</label>
-  <select name="status" required>
-    <option value="Not Started">Not Started</option>
-    <option value="In Progress">In Progress</option>
-    <option value="Completed">Completed</option>
-  </select>
-  <label>Comments:</label><textarea name="comments"></textarea>
-  <button type="submit">Submit</button>
-</form>
-<h4>Submitted Timesheets</h4>
-<ul>
-  <% timesheets.forEach(ts => { %>
-    <li><%= ts.task_description %> - <%= ts.total_hours %> hrs - <%= ts.status %></li>
-  <% }) %>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timesheets</title>
+  <style>
+    /* General Styles */
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header Styling */
+    .header {
+      background: #3B7A57; /* Dark Green */
+      color: #FFF;
+      padding: 10px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-title {
+      font-size: 28px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 2px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: #FFF;
+      font-weight: normal;
+      padding: 10px 15px;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      background-color: gray; /* Coral */
+      color: #000;
+    }
+
+    /* Main Content Section */
+    .content {
+      margin-top: 120px; /* Adjusted for the header */
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Timesheet Container */
+    .timesheet-container {
+      background: #FFF;
+      width: 80%;
+      max-width: 900px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .timesheet-header {
+      text-align: center;
+      border-bottom: 3px solid #ff6f61; /* Coral */
+      padding-bottom: 10px;
+    }
+
+    .timesheet-header h3 {
+      font-size: 24px;
+      color: #004d40; /* Teal for heading */
+      margin: 0;
+    }
+
+    /* Timesheet Form Styling */
+    form {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 15px;
+      align-items: center;
+    }
+
+    label {
+      font-weight: bold;
+      color: #212121; /* Charcoal */
+    }
+
+    input, select, textarea {
+      width: 95%;
+      padding: 10px;
+      border: 2px solid #004d40; /* Teal border */
+      border-radius: 8px;
+      font-size: 14px;
+      transition: box-shadow 0.3s;
+      background-color: #FFF;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      box-shadow: 0 0 8px #ff6f61; /* Coral glow */
+    }
+
+    textarea {
+      grid-column: span 2;
+      resize: none;
+    }
+
+    .button-container {
+      grid-column: span 2;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    button:hover {
+      background-color: #F26D5B; /* Teal on hover */
+      color: #FFF;
+    }
+
+    button[type="submit"] {
+      background-color: #004d40; /* Dark Green */
+      color: #FFF;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #285943; /* Darker Green */
+    }
+
+    button[type="button"] {
+      background-color: #F26D5B; /* Coral */
+      color: #FFF;
+    }
+
+    button[type="button"]:hover {
+      background-color: #C55647; /* Darker Coral */
+    }
+
+    /* Submitted Timesheets */
+    .submitted-timesheets {
+      padding-top: 20px;
+    }
+
+    .submitted-timesheets h4 {
+      font-size: 18px;
+      color: #004d40; /* Teal for heading */
+      margin-bottom: 10px;
+    }
+
+    .submitted-timesheets ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .submitted-timesheets li {
+      background: #f1f1f1;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid #ff6f61; /* Coral marker */
+    }
+
+    .submitted-timesheets li:nth-child(even) {
+      background: #e0f2f1; /* Light Teal */
+    }
+
+    /* Footer Styling */
+    .footer {
+      text-align: center;
+      padding: 10px;
+      background: #3B7A57; /* Dark Green */
+      color: #FFF;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title">WORKSPY</div>
+    <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+    <div class="nav-menu">
+      <a href="/timesheets" class="active">Timesheets</a>
+      <a href="/leave/apply-leave">Apply for Leave</a>
+      <a href="/leave">Leave List</a>
+      <a href="/reports/task-reports">View Task Reports</a>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="timesheet-container">
+      <div class="timesheet-header">
+        <h3>Timesheets</h3>
+      </div>
+      <!-- Timesheet Form -->
+      <form action="/timesheets" method="POST">
+        <label for="taskId">Task ID:</label>
+        <input type="text" id="taskId" name="taskId" required>
+
+        <label for="totalHours">Total Hours:</label>
+        <input type="number" step="0.1" id="totalHours" name="totalHours" required>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status" required>
+          <option value="Not Started">Not Started</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+
+        <label for="comments">Comments:</label>
+        <textarea id="comments" name="comments" rows="4" placeholder="Add any additional details here..."></textarea>
+
+        <div class="button-container">
+          <button type="submit">Submit</button>
+            <button type="button" onclick="window.location.href='/dashboard'">Back</button>
+        </div>
+      </form>
+
+      <!-- Submitted Timesheets -->
+      <div class="submitted-timesheets">
+        <h4>Submitted Timesheets</h4>
+        <ul>
+          <% timesheets.forEach(ts => { %>
+            <li>
+              <span><%= ts.task_description %></span>
+              <span><%= ts.total_hours %> hrs</span>
+              <span><%= ts.status %></span>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2024 WorkSpy. All Rights Reserved to 'M-A-L'.
+  </footer>
+</body>
+</html>

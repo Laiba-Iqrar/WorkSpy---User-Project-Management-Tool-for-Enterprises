@@ -1,43 +1,227 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Project</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #F9F9F9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Header Styling */
+    .header {
+      background-color: #3B7A57; /* Professional green */
+      color: #FFF;
+      padding: 15px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center; /* Center the header content horizontally */
+      align-items: center; /* Vertically center the header content */
+    }
+
+    .header-content {
+      text-align: center;
+    }
+
+    .header-title {
+      font-size: 28px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 2px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    /* Main Content Styling */
+    .container {
+      padding: 100px 20px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* Form Styling */
+    .form-container {
+      background-color: #FFF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .form-container h2 {
+      font-size: 24px;
+      font-weight: bold;
+      color: black;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 18px;
+      font-weight: normal;
+      color: #F26D5B ;
+      margin: 10px 0 5px;
+      display: inline-block;
+    }
+
+    input[type="text"], input[type="date"], textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #333;
+      background-color: #FFF;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 150px;
+    }
+
+    button {
+      background-color: #3B7A57;
+      color: #FFF;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #F26D5B;
+    }
+
+    /* Quick Actions Section */
+    .quick-actions ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .quick-actions a {
+      text-decoration: none;
+      color: #F26D5B;
+      background-color: transparent;
+      padding: 20px 30px;
+      border: 1px solid #E0E0E0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: box-shadow 0.3s, background-color 0.3s;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .quick-actions a:hover {
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+      background-color: #F0F0F0;
+    }
+
+    .quick-actions i {
+      font-size: 20px;
+      color: #3B7A57;
+    }
+
+    /* Back Button Styling */
+    .back-btn {
+      display: block;
+      margin: 20px auto;
+      background-color: #F26D5B;
+      color: #FFF;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      width: fit-content;
+    }
+
+    .back-btn:hover {
+      background-color: #3B7A57;
+    }
+  </style>
 </head>
 <body>
-  <h1>Edit Project</h1>
-  <form action="/m-projects/edit/<%= project ? project.project_id : '' %>" method="POST">
-    <label for="project_name">Project Name:</label>
-    <input
-      type="text"
-      id="project_name"
-      name="project_name"
-      value="<%= project ? project.project_name : '' %>"
-      required
-    >
-  
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" required><%= project ? project.description : '' %></textarea>
-  
-    <label for="milestone">Milestone:</label>
-    <input
-      type="text"
-      id="milestone"
-      name="milestone"
-      value="<%= project ? project.milestone : '' %>"
-      required
-    >
-  
-    <label for="deadline">Deadline:</label>
-    <input
-      type="date"
-      id="deadline"
-      name="deadline"
-      value="<%= project ? project.deadline.toISOString().slice(0, 10) : '' %>"
-      required
-    >
-  
-    <button type="submit">Update Project</button>
-  </form>
-  
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-title">WorkSpy</div>
+      <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Edit Project Form -->
+    <div class="form-container">
+      <h2>EDIT PROJECT</h2>
+      <form action="/m-projects/edit/<%= project ? project.project_id : '' %>" method="POST">
+        <label for="project_name">Project Name:</label>
+        <input
+          type="text"
+          id="project_name"
+          name="project_name"
+          value="<%= project ? project.project_name : '' %>"
+          required
+        >
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required><%= project ? project.description : '' %></textarea>
+
+        <label for="milestone">Milestone:</label>
+        <input
+          type="text"
+          id="milestone"
+          name="milestone"
+          value="<%= project ? project.milestone : '' %>"
+          required
+        >
+
+        <label for="deadline">Deadline:</label>
+        <input
+          type="date"
+          id="deadline"
+          name="deadline"
+          value="<%= project ? project.deadline.toISOString().slice(0, 10) : '' %>"
+          required
+        >
+
+        <button type="submit">Update Project</button>
+      </form>
+    </div>
+    
+
+    <!-- Back Button -->
+    <a href="/m-projects" class="back-btn">Back to Projects</a>
+  </div>
+
 </body>
 </html>

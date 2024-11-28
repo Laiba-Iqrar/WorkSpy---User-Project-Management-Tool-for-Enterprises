@@ -1,4 +1,150 @@
-<h1>View Task</h1>
-<p><strong>Description:</strong> <%= task.task_description %></p>
-<p><strong>Status:</strong> <%= task.status %></p>
-<a href="/m-tasks">Back to Tasks</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Task</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #F4F4F9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Header Styling */
+    .header {
+      background-color: #3B7A57;
+      color: #FFF;
+      padding: 15px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-title {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 5px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    /* Container Styling */
+    .container {
+      max-width: 800px;
+      margin: 100px auto 50px;
+      background-color: #FFF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      color: black;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: #3B7A57;
+      margin: 10px auto;
+      border-radius: 5px;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 10px 0;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    strong {
+      color: #333;
+    }
+
+    /* Icon Styling */
+    .icon {
+      color: gray;
+      margin-right: 10px;
+    }
+
+    /* Back Link Styling */
+    .back-link {
+      display: inline-block;
+      margin: 20px auto;
+      color: #FFF;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 20px;
+      background-color: #F26D5B;
+      border: 2px solid #F26D5B;
+      border-radius: 5px;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back-link:hover {
+      background-color: #FFF;
+      color: #3B7A57;
+    }
+
+    .back-link i {
+      margin-right: 8px;
+    }
+
+    /* Footer Styling */
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #3B7A57;
+      color: #FFF;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title">WorkSpy</div>
+    <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+  </header>
+
+  <!-- View Task Container -->
+  <div class="container">
+    <h1>View Task</h1>
+    <p><i class="fa-solid fa-tasks icon"></i><strong>Description:</strong> <%= task.task_description %></p>
+    <p><i class="fa-solid fa-check-circle icon"></i><strong>Status:</strong> <%= task.status %></p>
+    <a href="/m-tasks" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i>Back to Tasks
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2024 WorkSpy. All Rights Reserved to 'M-A-L'.
+  </footer>
+
+</body>
+</html>

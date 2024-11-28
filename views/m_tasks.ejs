@@ -1,24 +1,213 @@
-<table>
-    <tr>
-      <th>Task</th>
-      <th>Assigned User</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-    <% tasks.forEach(task => { %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #F4F4F9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Header Styling */
+    .header {
+      background-color: #3B7A57; /* Blue-Gray header */
+      color: #FFF;
+      padding: 15px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      text-align: center;
+    }
+
+    .header-title {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 5px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    /* Task Table Styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px; /* Reduced margin */
+      background-color: #FFF;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 18px;
+      text-align: left;
+      font-size: 16px;
+      color: #333;
+    }
+
+    th {
+      background-color: #D3D3D3; /* Blue-Gray header for table */
+      color: black;
+      font-weight: normal;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #e1e1e1;
+    }
+
+    /* Action Button Styles */
+    a, button {
+      display: inline-block;
+      padding: 8px 15px;
+      margin: 5px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #FFF;
+      font-weight: bold;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+
+    a {
+      background-color: #F26D5B; /* Red button for View/Edit */
+    }
+
+    a:hover {
+      background-color: #F26D5B;
+    }
+
+    button {
+      background-color: #F26D5B; /* Red button for Delete */
+      border: none;
+    }
+
+    button:hover {
+      background-color: #3B7A57;
+    }
+
+    /* Task Heading Styling */
+    h1 {
+      font-size: 28px;
+      font-weight: normal;
+      color: black; /* Blue-Gray color */
+      text-align: center;
+      margin: 0; /* Removed margin */
+      padding: 20px 0;
+    }
+
+    /* Back and Create Button Styling */
+    .back-link, .create-link {
+      display: inline-block;
+      background-color: transparent;
+      margin: 20px 0; /* Adjusted the margin */
+      color: black;
+      text-decoration: none;
+      font-weight: normal;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: 2px solid #F26D5B;
+      border-radius: 5px;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back-link:hover, .create-link:hover {
+      background-color: #F26D5B;
+      color: #FFF;
+    }
+
+    .back-link i, .create-link i {
+      margin-right: 8px;
+    }
+
+    /* Footer Styling */
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #3B7A57; /* Blue-Gray footer */
+      color: #FFF;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-title">WorkSpy</div>
+      <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+    </div>
+  </header>
+
+  <!-- Task Table -->
+  <div class="container" style="max-width: 1200px; margin: 50px auto; color: black; margin-top: 100px;">
+    <h1>TASKS</h1>
+    <table>
       <tr>
-        <td><%= task.task_description %></td>
-        <td><%= task.assigned_user %></td>
-        <td><%= task.status %></td>
-        <td>
-          <a href="/m-tasks/view/<%= task.task_id %>">View</a>
-          <a href="/m-tasks/edit/<%= task.task_id %>">Edit</a>
-          <form method="POST" action="/m-tasks/delete/<%= task.task_id %>" style="display:inline;">
-            <button type="submit">Delete</button>
-          </form>
-        </td>
+        <th>Task</th>
+        <th>Assigned User</th>
+        <th>Status</th>
+        <th>Actions</th>
       </tr>
-    <% }) %>
-  </table>
-  <a href="/m-tasks/create">Create Task</a>
-  
+      <% tasks.forEach(task => { %>
+        <tr>
+          <td><%= task.task_description %></td>
+          <td><%= task.assigned_user %></td>
+          <td><%= task.status %></td>
+          <td>
+            <a href="/m-tasks/view/<%= task.task_id %>">View</a>
+            <a href="/m-tasks/edit/<%= task.task_id %>">Edit</a>
+            <form method="POST" action="/m-tasks/delete/<%= task.task_id %>" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+
+    <!-- Create Task and Back Buttons -->
+    <div style="text-align:center;">
+      <a href="/m-tasks/create" class="create-link">
+        <i class="fa-solid fa-plus"></i>Create Task
+      </a>
+      <a href="/manager-dashboard" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i>Back
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2024 WorkSpy. All Rights Reserved to 'M-A-L'.
+  </footer>
+
+</body>
+</html>
