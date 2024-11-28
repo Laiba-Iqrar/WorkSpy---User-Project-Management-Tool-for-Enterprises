@@ -1,3 +1,4 @@
+//m_usersController.js
 const { getUsersUnderManager, addUser, deleteUser } = require('../models/m_usersModel');
 
 // Display all users for the manager
@@ -25,13 +26,15 @@ async function addUserAction(req, res) {
     const userData = req.body;
     const managerId = req.session.userId; // Get manager ID from session
     await addUser(userData, managerId);
-    res.redirect('/manager-users');
+
+    // Re-fetch updated user list and render
+    const users = await getUsersUnderManager(managerId);
+    res.render('m_users', { users });
   } catch (error) {
     console.error('Error adding user:', error);
     res.status(500).send('Error adding user');
   }
 }
-
 
 // Delete a user (soft delete)
 async function deleteUserAction(req, res) {

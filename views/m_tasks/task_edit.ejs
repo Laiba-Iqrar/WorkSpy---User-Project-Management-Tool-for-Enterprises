@@ -4,24 +4,185 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Task</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #F4F4F9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Header Styling */
+    .header {
+      background-color: #3B7A57;
+      color: #FFF;
+      padding: 15px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-title {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .slogan {
+      font-size: 14px;
+      margin-top: 5px;
+      font-style: italic;
+      color: #FFDAB9;
+    }
+
+    /* Container Styling */
+    .container {
+      max-width: 600px;
+      margin: 120px auto 50px;
+      background-color: #FFF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      color: black;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: #3B7A57;
+      margin: 10px auto;
+      border-radius: 5px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input, select, button {
+      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #CCC;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #3B7A57;
+      box-shadow: 0 0 5px rgba(59, 122, 87, 0.5);
+    }
+
+    button {
+      background-color: #F26D5B;
+      color: #FFF;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #3B7A57;
+    }
+
+    button i {
+      margin-right: 8px;
+    }
+
+    /* Back Button Styling */
+    .back-link {
+      display: inline-block;
+      margin: 20px auto;
+      color: black;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: 2px solid #F26D5B;
+      border-radius: 5px;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back-link:hover {
+      background-color: #F26D5B;
+      color: #FFF;
+    }
+
+    .back-link i {
+      margin-right: 8px;
+    }
+
+    /* Footer Styling */
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #3B7A57;
+      color: #FFF;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-  <h1>Edit Task</h1>
-  <form method="POST" action="/m-tasks/edit/<%= task.task_id %>">
-    <label for="task_description">Task Description:</label>
-    <input type="text" id="task_description" name="task_description" value="<%= task.task_description %>" required>
-    <br><br>
 
- 
-    <label for="status">Status:</label>
-    <select id="status" name="status" required>
-      <option value="pending" <%= task.status === 'pending' ? 'selected' : '' %>>Pending</option>
-      <option value="in-progress" <%= task.status === 'in-progress' ? 'selected' : '' %>>In Progress</option>
-      <option value="completed" <%= task.status === 'completed' ? 'selected' : '' %>>Completed</option>
-    </select>
-    <br><br>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title">WorkSpy</div>
+    <div class="slogan">"Empowering Workforces, Simplifying Lives"</div>
+  </header>
 
-    <button type="submit">Update Task</button>
-  </form>
+  <!-- Edit Task Container -->
+  <div class="container">
+    <h1>Edit Task</h1>
+    <form method="POST" action="/m-tasks/edit/<%= task.task_id %>">
+      <label for="task_description">Task Description:</label>
+      <input type="text" id="task_description" name="task_description" value="<%= task.task_description %>" required>
+
+      <label for="status">Status:</label>
+      <select id="status" name="status" required>
+        <option value="pending" <%= task.status === 'pending' ? 'selected' : '' %>>Pending</option>
+        <option value="in-progress" <%= task.status === 'in-progress' ? 'selected' : '' %>>In Progress</option>
+        <option value="completed" <%= task.status === 'completed' ? 'selected' : '' %>>Completed</option>
+      </select>
+
+      <button type="submit">
+        <i class="fa-solid fa-check"></i>Update Task
+      </button>
+    </form>
+
+    <!-- Back Button -->
+    <a href="/m-tasks" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i>Back to Tasks
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2024 WorkSpy. All Rights Reserved to 'M-A-L'.
+  </footer>
+
 </body>
 </html>

@@ -1,6 +1,6 @@
+//m_usersModel.js
 const db = require('../db');
 const bcrypt = require('bcrypt'); // For password hashing comparison
-
 
 // Fetch all users under a manager
 async function getUsersUnderManager(managerId) {
@@ -15,17 +15,13 @@ async function getUsersUnderManager(managerId) {
 
 // Add a new user
 async function addUser(userData, managerId) {
-  const { firstName, lastName, email, password, role } = userData;
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const result = await db.query(
-    `INSERT INTO users (first_name, last_name, email, password, role, manager_id) 
-     VALUES (?, ?, ?, ?, ?, ?)`,
-    [firstName, lastName, email, hashedPassword, role, managerId]
+  const hashedPassword = await bcrypt.hash(userData.password, 10);
+  await db.query(
+    `INSERT INTO users (first_name, last_name, email, password, role, manager_id, is_active)
+     VALUES (?, ?, ?, ?, ?, ?, TRUE)`,
+    [userData.firstName, userData.lastName, userData.email, hashedPassword, userData.role, managerId]
   );
-  return result.insertId;
 }
-
 
 // Delete a user
 async function deleteUser(userId) {
