@@ -48,11 +48,11 @@ function isAuthenticated(req, res, next) {
 }
 
 
-
 // Route for the landing page
 app.get('/', (req, res) => {
   res.render('index'); // Render the index.ejs file
 });
+
 
 
 app.use('/', authRoutes); // Login & Dashboard
