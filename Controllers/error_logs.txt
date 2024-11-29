@@ -1,0 +1,20 @@
+2024-11-29T01:46:35.953Z - Action: deleteExistingProject - Error: getTasksForProject is not defined
+ReferenceError: getTasksForProject is not defined
+    at deleteExistingProject (C:\Users\CloudJunction\Desktop\WS\Controllers\m_projectsController.js:88:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async C:\Users\CloudJunction\Desktop\WS\routes\m_projectsRoutes.js:60:7
+2024-11-29T01:46:40.732Z - Action: deleteExistingProject - Error: getTasksForProject is not defined
+ReferenceError: getTasksForProject is not defined
+    at deleteExistingProject (C:\Users\CloudJunction\Desktop\WS\Controllers\m_projectsController.js:88:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async C:\Users\CloudJunction\Desktop\WS\routes\m_projectsRoutes.js:60:7
+2024-11-29T01:46:45.590Z - Action: deleteExistingProject - Error: getTasksForProject is not defined
+ReferenceError: getTasksForProject is not defined
+    at deleteExistingProject (C:\Users\CloudJunction\Desktop\WS\Controllers\m_projectsController.js:88:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async C:\Users\CloudJunction\Desktop\WS\routes\m_projectsRoutes.js:60:7
+2024-11-29T01:46:48.726Z - Action: deleteExistingProject - Error: getTasksForProject is not defined
+ReferenceError: getTasksForProject is not defined
+    at deleteExistingProject (C:\Users\CloudJunction\Desktop\WS\Controllers\m_projectsController.js:88:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async C:\Users\CloudJunction\Desktop\WS\routes\m_projectsRoutes.js:60:7
