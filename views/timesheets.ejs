@@ -232,28 +232,32 @@
       </div>
       <!-- Timesheet Form -->
       <form action="/timesheets" method="POST">
-        <label for="taskId">Task ID:</label>
-        <input type="text" id="taskId" name="taskId" required>
-
+        <label for="taskId">Task:</label>
+        <select id="taskId" name="taskId" required>
+          <% tasks.forEach(task => { %>
+            <option value="<%= task.task_id %>"><%= task.task_description %></option>
+          <% }) %>
+        </select>
+      
         <label for="totalHours">Total Hours:</label>
         <input type="number" step="0.1" id="totalHours" name="totalHours" required>
-
+      
         <label for="status">Status:</label>
         <select id="status" name="status" required>
           <option value="Not Started">Not Started</option>
           <option value="In Progress">In Progress</option>
           <option value="Completed">Completed</option>
         </select>
-
+      
         <label for="comments">Comments:</label>
         <textarea id="comments" name="comments" rows="4" placeholder="Add any additional details here..."></textarea>
-
+      
         <div class="button-container">
           <button type="submit">Submit</button>
-            <button type="button" onclick="window.location.href='/dashboard'">Back</button>
+          <button type="button" onclick="window.location.href='/dashboard'">Back</button>
         </div>
       </form>
-
+      
       <!-- Submitted Timesheets -->
       <div class="submitted-timesheets">
         <h4>Submitted Timesheets</h4>

@@ -21,4 +21,21 @@ async function getTimesheets(userId) {
   return rows;
 }
 
-module.exports = { saveTimesheet, getTimesheets };
+// Get tasks for a specific user
+async function getTasksForUser(userId) {
+  const [rows] = await db.query(
+    `SELECT task_id, task_description FROM tasks WHERE user_id = ?`,
+    [userId]
+  );
+  return rows;
+}
+
+// Update task status
+async function updateTaskStatus(taskId, status) {
+  await db.query(
+    `UPDATE tasks SET status = ? WHERE task_id = ?`,
+    [status, taskId]
+  );
+}
+
+module.exports = { saveTimesheet, getTimesheets, getTasksForUser, updateTaskStatus };

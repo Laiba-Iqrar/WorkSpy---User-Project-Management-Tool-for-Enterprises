@@ -8,7 +8,7 @@
   <style>
     /* General Styles */
     body {
-      background-color: #F4F8FB;
+      background-color: #f4f8fb;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
@@ -16,9 +16,9 @@
 
     /* Header Styling */
     .header {
-      background: #3B7A57; /* Dark Green */
+      background: #2C6B36; /* Dark Green */
       color: #FFF;
-      padding: 10px 0;
+      padding: 15px 0;
       text-align: center;
       position: fixed;
       top: 0;
@@ -28,14 +28,14 @@
     }
 
     .header-title {
-      font-size: 28px;
+      font-size: 32px;
       margin: 0;
       font-weight: bold;
     }
 
     .slogan {
-      font-size: 14px;
-      margin-top: 2px;
+      font-size: 16px;
+      margin-top: 5px;
       font-style: italic;
       color: #FFDAB9;
     }
@@ -44,27 +44,27 @@
       display: flex;
       justify-content: center;
       gap: 20px;
-      margin-top: 10px;
+      margin-top: 15px;
     }
 
     .nav-menu a {
       text-decoration: none;
       color: #FFF;
       font-weight: normal;
-      padding: 10px 15px;
+      padding: 10px 20px;
       border-radius: 6px;
       transition: background-color 0.3s, color 0.3s;
     }
 
     .nav-menu a:hover,
     .nav-menu a.active {
-      background-color: gray; /* Coral */
-      color: #000;
+      background-color: #FF6347; /* Tomato */
+      color: #FFF;
     }
 
     /* Main Content */
     .content {
-      margin: 20px auto;
+      margin: 100px auto 20px;
       width: 85%;
       max-width: 1000px;
       padding: 20px;
@@ -84,21 +84,23 @@
       max-width: 400px;
       max-height: 400px;
       margin: 20px auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     h3 {
-      color: black;
+      color: #333;
       font-size: 22px;
       text-align: center;
-      margin-top: 100px;
-      font-weight: normal;
+      margin-top: 20px;
+      font-weight: 600;
     }
 
     /* Footer Styling */
     .footer {
       text-align: center;
       padding: 10px;
-      background: #3B7A57; /* Green */
+      background: #2C6B36; /* Green */
       color: white;
       font-size: 12px;
       position: relative;
@@ -106,7 +108,7 @@
 
     /* Custom Badge and Button Styling */
     .status-badge {
-      background-color: #F26D5B; /* Coral */
+      background-color: #447dbe; /* Coral */
       color: white;
       padding: 10px 15px;
       border-radius: 5px;
@@ -125,7 +127,7 @@
       padding: 12px 20px;
       border: none;
       border-radius: 8px;
-      background-color: #3B7A57; /* Dark Green */
+      background-color: #2C6B36; /* Dark Green */
       color: white;
       font-size: 16px;
       font-weight: bold;
@@ -134,7 +136,7 @@
     }
 
     .button-group button:hover {
-      background-color: #285943; /* Darker Green */
+      background-color: #1f5126; /* Darker Green */
     }
 
   </style>
@@ -147,7 +149,7 @@
     <div class="nav-menu">
       <a href="/timesheets">Timesheets</a>
       <a href="/leave/apply-leave">Apply for Leave</a>
-      <a href="/leave" >Leave List</a>
+      <a href="/leave">Leave List</a>
       <a href="/reports/task-reports" class="active">View Task Reports</a>
     </div>
   </header>
@@ -195,7 +197,7 @@
         labels: taskChartData.labels,
         datasets: [{
           data: taskChartData.values,
-          backgroundColor: ['#F26D5B', '#FF6384', '#36A2EB', '#000000'], // Custom colors
+          backgroundColor: [ '#FF6384', '#36A2EB', '#4CAF50'], // Custom colors
         }]
       }
     });
@@ -210,9 +212,10 @@
         datasets: [{
           label: 'Hours Logged',
           data: weeklyHoursChartData.values,
-          borderColor: '#F26D5B', // Custom color
+          borderColor: '#FF6347', // Tomato color
           borderWidth: 2,
           fill: false,
+          tension: 0.1
         }]
       },
       options: {
@@ -232,7 +235,7 @@
         labels: timesheetChartData.labels,
         datasets: [{
           data: timesheetChartData.values,
-          backgroundColor: ['#F26D5B', '#FF6384', '#000000'], // Custom colors
+          backgroundColor: ['#FF6347', '#36A2EB', '#4CAF50'], // Custom colors
         }]
       }
     });

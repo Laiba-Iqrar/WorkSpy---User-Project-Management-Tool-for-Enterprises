@@ -185,6 +185,46 @@
     footer p {
       margin: 0;
       font-size: 14px;
+          /* Notifications Section */
+    .notifications ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .notifications li {
+      background-color: whitesmoke;
+      border: 1px solid #E0E0E0;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .notifications li i {
+      color: #F26D5B;
+      margin-right: 15px;
+      font-size: 22px;
+    }
+
+    .notifications li div {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .notifications button {
+      background-color: #3B7A57;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .notifications button:hover {
+      background-color: #F26D5B;
+    }
     }
   </style>
 </head>
@@ -200,7 +240,6 @@
       <i class="fas fa-sign-out-alt"></i> Logout
     </button>
   </header>
-  
 
   <!-- Main Container -->
   <div class="container">
@@ -222,41 +261,61 @@
         <p><%= metrics.pendingApprovals %></p>
       </div>
     </section>
+    <div>
+      <!-- Quick Actions Section -->
+      <section class="quick-actions">
+        <h2>Quick Actions</h2>
+        <ul>
+          <li><a href="/m-projects"><i class="fas fa-folder"></i> View Projects</a></li>
+          <li><a href="/m-tasks"><i class="fas fa-tasks"></i> View Tasks</a></li>
+          <li><a href="/manager-users"><i class="fas fa-users"></i> View Users</a></li>
+          <li><a href="/m_timesheets"><i class="fas fa-clock"></i> Review Timesheets</a></li>
+          <li><a href="/view-reports"><i class="fas fa-file-alt"></i> View Reports</a></li>
+        </ul>
+      </section>
+    </div>
 
-    <!-- Notifications Section -->
-    <section class="notifications">
-      <h2>Notifications</h2>
-      <h3>Pending Leave Requests</h3>
-      <ul>
-        <% notifications.pendingLeaveRequests.forEach(request => { %>
-          <li>
-            <i class="fas fa-envelope"></i> <%= request.reason %> (Status: <%= request.status %>)
+      <!-- Notifications -->
+      <div class="notifications">
+        <h3>Pending Leave Requests</h3>
+        <ul id="notifications-list">
+          <li id="notification-1">
+            <i class="fas fa-calendar-check"></i>
+            <strong>Laiba Iqrar</strong> requested <strong>Sick Leave</strong> from 2024-12-01 to 2024-12-03.
+            <div>
+              <button onclick="handleLeaveRequest('1', 'approve')">Approve</button>
+              <button onclick="handleLeaveRequest('1', 'reject')">Reject</button>
+            </div>
           </li>
-        <% }) %>
-      </ul>
-
-      <h3>Upcoming Project Deadlines</h3>
-      <ul>
-        <% notifications.upcomingDeadlines.forEach(deadline => { %>
-          <li>
-            <i class="fas fa-calendar-alt"></i> <%= deadline.project_name %> (Deadline: <%= deadline.deadline %>)
+          <li id="notification-2">
+            <i class="fas fa-calendar-check"></i>
+            <strong>Anoosha Khalid</strong> requested <strong>Casual Leave</strong> from 2024-12-05 to 2024-12-06.
+            <div>
+              <button onclick="handleLeaveRequest('2', 'approve')">Approve</button>
+              <button onclick="handleLeaveRequest('2', 'reject')">Reject</button>
+            </div>
           </li>
-        <% }) %>
-      </ul>
-    </section>
+        </ul>
+      </div>
+    <script>
+      // JavaScript to handle leave requests
+      function handleLeaveRequest(leaveId, action) {
+        if (!['approve', 'reject'].includes(action)) {
+          alert('Invalid action'); 
+          return;
+        }
 
-    <!-- Quick Actions Section -->
-    <section class="quick-actions">
-      <h2>Quick Actions</h2>
-      <ul>
-        <li><a href="/m-projects"><i class="fas fa-folder"></i> View Projects</a></li>
-        <li><a href="/m-tasks"><i class="fas fa-tasks"></i> View Tasks</a></li>
-        <li><a href="/manager-users"><i class="fas fa-users"></i> View Users</a></li>
-        <li><a href="/m_timesheets"><i class="fas fa-clock"></i> Review Timesheets</a></li>
-        <li><a href="/view-reports"><i class="fas fa-file-alt"></i> View Reports</a></li>
-      </ul>
-    </section>
+        // Simulate server response
+        setTimeout(() => {
+          // Simulate successful response
+          alert(`Leave request ${leaveId} has been ${action}d.`);
+          // Remove the notification from the list
+          document.getElementById(`notification-${leaveId}`).remove();
+        }, 500); // Simulate delay
+      }
+    </script>
   </div>
+  
 
   <!-- Footer -->
   <footer>
