@@ -134,6 +134,8 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-height: 300px; /* Set max height for scroll */
+      overflow-y: auto; /* Enable vertical scrolling */
     }
 
     .tasks-title {
@@ -152,16 +154,27 @@
       border: 1px solid #E0E0E0;
       border-radius: 8px;
       margin-bottom: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: background-color 0.3s;
     }
 
-    .task-item:nth-child(odd) {
-      background-color: #E6F7F5; /* Light green for alternate rows */
+    .task-item:hover {
+      background-color: #E6F7F5; /* Highlight on hover */
     }
 
     .task-status {
       font-weight: bold;
-      color: #66B3A6; /* Green for task status */
+    }
+
+    .status-not-started {
+      color: #FFA500; /* Orange for Not Started */
+    }
+
+    .status-in-progress {
+      color: #007BFF; /* Blue for In Progress */
+    }
+
+    .status-completed {
+      color: #28A745; /* Green for Completed */
     }
 
     /* Footer Styling */
@@ -212,7 +225,9 @@
         <% tasks.forEach(task => { %>
           <div class="task-item">
             <span><%= task.task_description %></span>
-            <span class="task-status"><%= task.status %></span>
+            <span class="task-status status-<%= task.status.toLowerCase().replace(' ', '-') %>">
+              <%= task.status %>
+            </span>
           </div>
         <% }) %>
       <% } else { %>
