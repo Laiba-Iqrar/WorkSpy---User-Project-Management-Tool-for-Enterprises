@@ -1,3 +1,4 @@
+// mocha tests/authController.test.js
 const { Builder, By, until } = require('selenium-webdriver');
 const { expect } = require('chai');
 const fs = require('fs');

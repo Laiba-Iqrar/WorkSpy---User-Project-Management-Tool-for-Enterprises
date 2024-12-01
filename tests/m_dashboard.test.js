@@ -1,3 +1,4 @@
+// npx mocha tests/m_dashboard.test.js
 const { JSDOM } = require('jsdom');
 const { expect } = require('chai');
 const fs = require('fs');
